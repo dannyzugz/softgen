@@ -1,0 +1,51 @@
+package main
+
+import (
+	"log"
+	"net/http"
+	"os"
+	"path/filepath"
+	"strings"
+
+	"github.com/go-chi/chi/v5"
+)
+
+func main() {
+	r := chi.NewRouter()
+
+	workDir, _ := os.Getwd()
+	filesDir := http.Dir(filepath.Join(workDir, "./ui/static")) //Configuration to serve statics files from ./ui/static/ directory
+	FileServer(r, "/static", filesDir)
+
+	r.Get("/", Home)
+
+	r.Get("/path1", Func1)
+	r.Post("/path2", Func2)
+	r.Put("/path3", Func3)
+	r.Delete("/path4", Func4)
+
+
+	log.Println("initializing server at https://127.0.0.1:3000")
+	http.ListenAndServe(":3000", r)
+}
+
+// Handling fileserver in Chi-router
+
+func FileServer(r chi.Router, path string, root http.FileSystem) {
+	if strings.ContainsAny(path, "{}*") {
+		panic("FileServer does not permit any URL parameters.")
+	}
+
+	if path != "/" && path[len(path)-1] != '/' {
+		r.Get(path, http.RedirectHandler(path+"/", http.StatusMovedPermanently).ServeHTTP)
+		path += "/"
+	}
+	path += "*"
+
+	r.Get(path, func(w http.ResponseWriter, r *http.Request) {
+		rctx := chi.RouteContext(r.Context())
+		pathPrefix := strings.TrimSuffix(rctx.RoutePattern(), "/*")
+		fs := http.StripPrefix(pathPrefix, http.FileServer(root))
+		fs.ServeHTTP(w, r)
+	})
+}

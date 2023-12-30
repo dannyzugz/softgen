@@ -41,7 +41,7 @@ func CreateChiProject(w http.ResponseWriter, r *http.Request) { // Chi Router
 	projectname := chi.URLParam(r, "name")
 
 	services.GeneratePro(projectname)
-	services.GeneratePro(projectname)
+
 	services.GenerateFolder(projectname, "bin")
 	services.GenerateFolder(projectname, "cmd")
 	services.GenerateFolder(projectname, "cmd/api")
@@ -51,6 +51,13 @@ func CreateChiProject(w http.ResponseWriter, r *http.Request) { // Chi Router
 	services.GenerateFolder(projectname, "ui")
 	services.GenerateFolder(projectname, "ui/html")
 	services.GenerateFolder(projectname, "ui/static")
+
+	services.GenerateFiles(projectname, "/ui/html/index.html", "html.tmpl")
+	services.GenerateFiles(projectname, "/ui/static/main.css", "css.tmpl")
+	services.GenerateFiles(projectname, "/ui/static/main.js", "js.tmpl")
+	services.GenerateFiles(projectname, "/cmd/api/server.go", "chi.tmpl")
+	services.GenerateFiles(projectname, "/cmd/api/handlers.go", "handlers.tmpl")
+
 }
 
 func CreateMuxProject(w http.ResponseWriter, r *http.Request) { // Gorilla Mux
