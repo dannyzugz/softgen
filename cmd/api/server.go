@@ -19,6 +19,7 @@ func main() {
 
 	r.Get("/", Home)
 	r.Get("/generator/create", ViewCreatedPro)
+	r.Get("/generator/download", Download)
 
 	r.Post("/generator/create/js/vue/{name}", CreateVueProject)
 	r.Post("/generator/create/js/react/{name}", CreateReactProject)

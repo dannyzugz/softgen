@@ -89,3 +89,7 @@ func CreateCobraProject(w http.ResponseWriter, r *http.Request) { // Cobra frame
 	services.GeneratePro(projectname)
 
 }
+
+func Download(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Download"))
+}
