@@ -103,11 +103,8 @@ func Download(w http.ResponseWriter, r *http.Request) {
 	// Create a temporary file to store the ZIP file
 	zipFile, err := os.CreateTemp("", "")
 	if err != nil {
-		log.Println("el error es cuando crear el file temporal")
 		log.Fatal(err)
 	}
-
-	// defer os.Remove(zipFile.Name())
 
 	// Create a writer for the ZIP file
 	zipWriter := zip.NewWriter(zipFile)
@@ -118,14 +115,12 @@ func Download(w http.ResponseWriter, r *http.Request) {
 	folderPath := filepath.Join(".", dir)
 	err = services.CompressFolder(folderPath, zipWriter)
 	if err != nil {
-		log.Println("el error es cuando comprime la carpeta")
 		log.Fatal(err)
 	}
 
 	// Close the ZIP file writer
 	err = zipWriter.Close()
 	if err != nil {
-		log.Println("el error es cuando cierra file writer")
 		log.Fatal(err)
 	}
 
