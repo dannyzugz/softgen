@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 )
 
-func compressFolder(folderPath string, zipWriter *zip.Writer) error {
+func CompressFolder(folderPath string, zipWriter *zip.Writer) error {
 
 	// Loop through all files and subfolders in the folder
 	err := filepath.Walk(folderPath, func(filePath string, fileInfo os.FileInfo, err error) error {
