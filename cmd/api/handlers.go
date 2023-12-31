@@ -10,7 +10,11 @@ import (
 
 func Home(w http.ResponseWriter, r *http.Request) {
 
-	template, err := template.ParseFiles("./ui/html/index.html")
+	// Preferiria sacar esto como const pero ando ninja en Go
+	ENTRY_POINT_PATH := "./ui/vanilla.old/html/index.html"
+
+	template, err := template.ParseFiles(ENTRY_POINT_PATH)
+
 	if err != nil {
 		panic(err)
 	} else {

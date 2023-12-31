@@ -14,7 +14,7 @@ func main() {
 	r := chi.NewRouter()
 
 	workDir, _ := os.Getwd()
-	filesDir := http.Dir(filepath.Join(workDir, "./ui/static")) //Configuration to serve statics files from ./ui/static/ directory
+	filesDir := http.Dir(filepath.Join(workDir, "./ui/vanilla.old/static")) //Configuration to serve statics files from ./ui/static/ directory
 	FileServer(r, "/static", filesDir)
 
 	r.Get("/", Home)
@@ -29,7 +29,7 @@ func main() {
 	r.Post("/generator/create/go/cobra/{name}", CreateCobraProject)
 	r.Post("/generator/create/ddd/{name}", CreateCobraProject)
 
-	log.Println("initializing server at https://127.0.0.1:3000")
+	log.Println("initializing server at http://127.0.0.1:3000")
 	http.ListenAndServe(":3000", r)
 }
 
