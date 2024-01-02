@@ -11,10 +11,11 @@ import (
 )
 
 func main() {
+
 	r := chi.NewRouter()
 
 	workDir, _ := os.Getwd()
-	filesDir := http.Dir(filepath.Join(workDir, "./ui/vanilla.old/static")) //Configuration to serve statics files from ./ui/static/ directory
+	filesDir := http.Dir(filepath.Join(workDir, "./ui/react/")) //Configuration to serve statics files from ./ui/static/ directory
 	FileServer(r, "/static", filesDir)
 
 	r.Get("/", Home)

@@ -6,19 +6,49 @@ import (
 
 	"github.com/DanyZugz/Software-Generator/internal/services"
 	"github.com/go-chi/chi/v5"
+
+	"encoding/json"
+	"io/ioutil"
+	"log"
 )
 
 func Home(w http.ResponseWriter, r *http.Request) {
 
 	// Preferiria sacar esto como const pero ando ninja en Go
-	ENTRY_POINT_PATH := "./ui/vanilla.old/html/index.html"
+	ENTRY_POINT_PATH := "./ui/react/index.html"
+	MANIFEST_PATH := "./ui/react/dist/manifest.json"
+
+	////////// DANI REVISA ESTO ///////////
+
+	content, err := ioutil.ReadFile(MANIFEST_PATH)
+	if err != nil {
+		log.Fatal("Error with react manifest file: ", err)
+	}
+
+	var payload map[string]interface{}
+	err = json.Unmarshal(content, &payload)
+	if err != nil {
+		log.Fatal("Error during Unmarshal(): ", err)
+	}
+
+	type Statics struct {
+		Css interface{}
+		Jsx interface{}
+	}
+
+	sfiles := Statics{
+		Css: payload["src/main.css"],
+		Jsx: payload["src/main.jsx"],
+	}
+
+	//////////////////////////////////////////
 
 	template, err := template.ParseFiles(ENTRY_POINT_PATH)
 
 	if err != nil {
 		panic(err)
 	} else {
-		template.Execute(w, nil)
+		template.Execute(w, sfiles)
 	}
 }
 
