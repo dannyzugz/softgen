@@ -1,26 +1,46 @@
 import "./App.css";
 
 function App() {
-
     return (
         <main>
             <h1>Code Generator</h1>
+
+            {/* Temporal styles change later */}
+            <div style={{display:"flex", flexDirection:"column"}}>
+                <label>
+                    Project Name
+                    <input type="text" name="project-name" />
+                </label>
+
+                <label>
+                    Module Path
+                    <input type="text" name="project-name" />
+                </label>
+            </div>
+
             <h2>STEP 1 Choose your application type</h2>
 
             <form action="">
                 <div>
                     <label>
                         <input type="radio" name="app-type" />
-                        Traditional web application Generate the scaffold for a
+                        Traditional web application: Generate the scaffold for a
                         'traditional' web application which uses server-side
                         HTML rendering.
                     </label>
                 </div>
                 <div>
                     <label>
-                        <input type="radio" name="app-type"/>
-                        JSON API Generate the scaffold for a API which processes
-                        JSON requests and sends JSON responses.
+                        <input type="radio" name="app-type" />
+                        JSON API: Generate the scaffold for an API which
+                        processes JSON requests and sends JSON responses.
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="radio" name="app-type" />
+                        CLI Project: Generate the scaffold for an application
+                        that uses an
                     </label>
                 </div>
             </form>
@@ -32,41 +52,37 @@ function App() {
             <form action="">
                 <div>
                     <label>
-                        <input type="radio" name="database-type"/>
+                        <input type="radio" name="database-type" />
                         None
                     </label>
                     <label>
-                        <input type="radio" name="database-type"/>
+                        <input type="radio" name="database-type" />
                         PostgreSQL
                     </label>
                     <label>
-                        <input type="radio" name="database-type"/>
+                        <input type="radio" name="database-type" />
                         MySQL
                     </label>
                 </div>
-                
+
                 <strong>Pick your preferred router:</strong>
 
                 <div>
                     <label>
-                        <input type="radio" name="router-type"/>
+                        <input type="radio" name="router-type" />
                         Chi
                     </label>
                     <label>
-                        <input type="radio" name="router-type"/>
-                        Flow
-                    </label>
-                    <label>
-                        <input type="radio" name="router-type"/>
+                        <input type="radio" name="router-type" />
                         Gorila Mux
                     </label>
                     <label>
-                        <input type="radio" name="router-type"/>
+                        <input type="radio" name="router-type" />
                         HttpRouter
                     </label>
                     <label>
-                        <input type="radio" name="router-type"/>
-                        Gin 
+                        <input type="radio" name="router-type" />
+                        Gin
                     </label>
                 </div>
             </form>
@@ -75,7 +91,6 @@ function App() {
 }
 
 export default App;
-
 
 // Command-line flags
 // Environment variables
