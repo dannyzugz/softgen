@@ -15,7 +15,7 @@ import (
 func Home(w http.ResponseWriter, r *http.Request) {
 
 	// Preferiria sacar esto como const pero ando ninja en Go
-	ENTRY_POINT_PATH := "./ui/react/index.html"
+	ENTRY_POINT_PATH := "./ui/base.html"
 	MANIFEST_PATH := "./ui/react/dist/manifest.json"
 
 	////////// DANI REVISA ESTO ///////////
