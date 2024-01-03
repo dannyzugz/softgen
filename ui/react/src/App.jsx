@@ -39,8 +39,7 @@ function App() {
                 <div>
                     <label>
                         <input type="radio" name="app-type" />
-                        CLI Project: Generate the scaffold for an application
-                        that uses an
+                        CLI Project: Generate the scaffold for a CLI application
                     </label>
                 </div>
             </form>
