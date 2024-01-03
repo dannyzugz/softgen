@@ -1,0 +1,23 @@
+package main
+
+import (
+    "net/http"
+    "log"
+    "github.com/gorilla/mux"
+)
+
+
+func main() {
+    r := mux.NewRouter()
+    // Routes consist of a path and a handler function.
+    
+    r.HandleFunc("/", Home)
+
+	r.HandleFunc("/path1", Func1)
+	r.HandleFunc("/path2", Func2)
+	r.HandleFunc("/path3", Func3)
+	r.HandleFunc("/path4", Func4)
+
+    // Bind to a port and pass our router in
+    log.Fatal(http.ListenAndServe(":8000", r))
+}
