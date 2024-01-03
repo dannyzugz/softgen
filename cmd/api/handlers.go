@@ -18,7 +18,7 @@ import (
 
 func Home(w http.ResponseWriter, r *http.Request) {
 
-	const ENTRY_POINT_PATH = "./ui/react/index.html"
+	const ENTRY_POINT_PATH = "./ui/base.html"
 	const MANIFEST_PATH = "./ui/react/dist/manifest.json"
 
 	////////// DANI REVISA ESTO ///////////
