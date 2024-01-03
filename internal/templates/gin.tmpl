@@ -1,0 +1,19 @@
+package main
+
+import (
+	"github.com/gin-gonic/gin"
+)
+
+func RunServer() {
+
+	r := gin.Default()
+
+	r.GET("/", Home)
+	r.GET("/get-path", Func1)
+
+	r.POST("/post-path", Func2)
+	r.PUT("/put-path", Func3)
+	r.DELETE("/delete-path", Func4)
+
+	r.Run() // Server is run on port 8080
+}

@@ -1,26 +1,29 @@
 package main
 
 import (
+	"archive/zip"
+	"fmt"
 	"html/template"
+	"log"
 	"net/http"
+	"os"
+
+	"path/filepath"
 
 	"github.com/DanyZugz/Software-Generator/internal/services"
 	"github.com/go-chi/chi/v5"
 
 	"encoding/json"
-	"io/ioutil"
-	"log"
 )
 
 func Home(w http.ResponseWriter, r *http.Request) {
 
-	// Preferiria sacar esto como const pero ando ninja en Go
-	ENTRY_POINT_PATH := "./ui/base.html"
-	MANIFEST_PATH := "./ui/react/dist/manifest.json"
+	const ENTRY_POINT_PATH = "./ui/base.html"
+	const MANIFEST_PATH = "./ui/react/dist/manifest.json"
 
 	////////// DANI REVISA ESTO ///////////
 
-	content, err := ioutil.ReadFile(MANIFEST_PATH)
+	content, err := os.ReadFile(MANIFEST_PATH)
 	if err != nil {
 		log.Fatal("Error with react manifest file: ", err)
 	}
@@ -125,5 +128,44 @@ func CreateCobraProject(w http.ResponseWriter, r *http.Request) { // Cobra frame
 }
 
 func Download(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Download"))
+
+	projectname := chi.URLParam(r, "name")
+
+	// Create a temporary file to store the ZIP file
+	zipFile, err := os.CreateTemp("", "")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Create a writer for the ZIP file
+	zipWriter := zip.NewWriter(zipFile)
+
+	dir := "/generatedProjects/" + projectname
+
+	// Compress the folder into the ZIP file
+	folderPath := filepath.Join(".", dir)
+	err = services.CompressFolder(folderPath, zipWriter)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Close the ZIP file writer
+	err = zipWriter.Close()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Send ZIP file as HTTP response
+	w.Header().Set("Content-Type", "application/zip")
+	w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s.zip\"", projectname))
+	http.ServeFile(w, r, zipFile.Name())
+
+}
+
+func CreateHttpProject(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Simple Http"))
+}
+
+func CreateDddProject(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("DDD Arch"))
 }
