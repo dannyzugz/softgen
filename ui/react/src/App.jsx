@@ -4,9 +4,8 @@ function App() {
     return (
         <main>
             <h1>Code Generator</h1>
-
             {/* Temporal styles change later */}
-            <div style={{display:"flex", flexDirection:"column"}}>
+            <div style={{ display: "flex", flexDirection: "column" }}>
                 <label>
                     Project Name
                     <input type="text" name="project-name" />
@@ -17,9 +16,7 @@ function App() {
                     <input type="text" name="project-name" />
                 </label>
             </div>
-
             <h2>STEP 1 Choose your application type</h2>
-
             <form action="">
                 <div>
                     <label>
@@ -43,11 +40,8 @@ function App() {
                     </label>
                 </div>
             </form>
-
             <h2> STEP 2 Customize your application</h2>
-
             <strong>Choose a database:</strong>
-
             <form action="">
                 <div>
                     <label>
@@ -85,6 +79,14 @@ function App() {
                     </label>
                 </div>
             </form>
+
+            <section>
+                <div>
+                    Click the button below to generate a ZIP file containing
+                    your project code
+                </div>
+                <input type="button" value={"Generate project!"} />
+            </section>
         </main>
     );
 }
