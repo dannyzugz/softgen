@@ -1,48 +1,81 @@
-import { useState } from 'react'
-import './App.css'
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-     code 
-    </>
-  )
+    return (
+        <main>
+            <h1>Code Generator</h1>
+            <h2>STEP 1 Choose your application type</h2>
+
+            <form action="">
+                <div>
+                    <label>
+                        <input type="radio" name="app-type" />
+                        Traditional web application Generate the scaffold for a
+                        'traditional' web application which uses server-side
+                        HTML rendering.
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="radio" name="app-type"/>
+                        JSON API Generate the scaffold for a API which processes
+                        JSON requests and sends JSON responses.
+                    </label>
+                </div>
+            </form>
+
+            <h2> STEP 2 Customize your application</h2>
+
+            <strong>Choose a database:</strong>
+
+            <form action="">
+                <div>
+                    <label>
+                        <input type="radio" name="database-type"/>
+                        None
+                    </label>
+                    <label>
+                        <input type="radio" name="database-type"/>
+                        PostgreSQL
+                    </label>
+                    <label>
+                        <input type="radio" name="database-type"/>
+                        MySQL
+                    </label>
+                </div>
+                
+                <strong>Pick your preferred router:</strong>
+
+                <div>
+                    <label>
+                        <input type="radio" name="router-type"/>
+                        Chi
+                    </label>
+                    <label>
+                        <input type="radio" name="router-type"/>
+                        Flow
+                    </label>
+                    <label>
+                        <input type="radio" name="router-type"/>
+                        Gorila Mux
+                    </label>
+                    <label>
+                        <input type="radio" name="router-type"/>
+                        HttpRouter
+                    </label>
+                    <label>
+                        <input type="radio" name="router-type"/>
+                        Gin 
+                    </label>
+                </div>
+            </form>
+        </main>
+    );
 }
 
-export default App
+export default App;
 
-
-
-// It's as easy as 1, 2, 3…
-// STEP 1
-
-// Choose your application type
-// Traditional web application
-
-// Generate the scaffold for a 'traditional' web application which uses server-side HTML rendering.
-
-// JSON API
-
-// Generate the scaffold for a API which processes JSON requests and sends JSON responses.
-
-// STEP 2
-
-// Customize your application
-// Choose a database:
-
-// None
-// SQLite
-// PostgreSQL
-// MySQL
-// Pick your preferred router:
-
-// Chi
-// Flow
-// Gorilla Mux
-// HttpRouter
-// Read configuration settings from:
 
 // Command-line flags
 // Environment variables
@@ -58,7 +91,6 @@ export default App
 
 // Select additional features and functionality
 // Tick any you want to include:
-
 
 // Access logging – Middleware for logging all requests and corresponding response status code and body size.
 
@@ -82,7 +114,6 @@ export default App
 
 // SQL migrations – Makefile actions for managing SQL migrations, and automatically run migrations on application startup.
 // To use PLUS features you'll need an Autostrada Plus account, available for a one-time purchase of $29. All other features are free!
-
 
 // Automatic HTTPS – Serve requests over HTTPS when running in production. Automatic TLS certificate management via Let's Encrypt and HTTP to HTTPS redirects. PLUS
 
