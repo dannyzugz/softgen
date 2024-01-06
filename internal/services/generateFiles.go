@@ -4,10 +4,13 @@ import (
 	"bytes"
 	"html/template"
 	"log"
+
+	"github.com/DanyZugz/Software-Generator/internal/models"
 )
 
-func GenerateFiles(projectname string, dir string, temp string) {
+func GenerateFiles(data models.ProjectData, dir string, temp string) {
 
+	projectname := data.ProjectName
 	var processed bytes.Buffer
 
 	if temp == "html.tmpl" || temp == "css.tmpl" || temp == "js.tmpl" {
@@ -28,7 +31,7 @@ func GenerateFiles(projectname string, dir string, temp string) {
 			log.Println(err)
 		}
 
-		err = tmpl.Execute(&processed, nil)
+		err = tmpl.Execute(&processed, data)
 		if err != nil {
 			log.Println(err)
 		}

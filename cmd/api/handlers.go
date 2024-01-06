@@ -10,6 +10,7 @@ import (
 
 	"path/filepath"
 
+	"github.com/DanyZugz/Software-Generator/internal/models"
 	"github.com/DanyZugz/Software-Generator/internal/services"
 	"github.com/go-chi/chi/v5"
 
@@ -75,7 +76,17 @@ func CreateReactProject(w http.ResponseWriter, r *http.Request) { // React js
 
 func CreateChiProject(w http.ResponseWriter, r *http.Request) { // Chi Router
 	w.Write([]byte("Chi Project"))
-	projectname := chi.URLParam(r, "name")
+	// projectname := chi.URLParam(r, "name")
+
+	var data models.ProjectData
+
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	projectname := data.ProjectName
 
 	services.GeneratePro(projectname)
 
@@ -89,11 +100,11 @@ func CreateChiProject(w http.ResponseWriter, r *http.Request) { // Chi Router
 	services.GenerateFolder(projectname, "ui/html")
 	services.GenerateFolder(projectname, "ui/static")
 
-	services.GenerateFiles(projectname, "/ui/html/index.html", "html.tmpl")
-	services.GenerateFiles(projectname, "/ui/static/main.css", "css.tmpl")
-	services.GenerateFiles(projectname, "/ui/static/main.js", "js.tmpl")
-	services.GenerateFiles(projectname, "/cmd/api/server.go", "chi.tmpl")
-	services.GenerateFiles(projectname, "/cmd/api/handlers.go", "handlers.tmpl")
+	services.GenerateFiles(data, "/ui/html/index.html", "html.tmpl")
+	services.GenerateFiles(data, "/ui/static/main.css", "css.tmpl")
+	services.GenerateFiles(data, "/ui/static/main.js", "js.tmpl")
+	services.GenerateFiles(data, "/cmd/api/server.go", "chi.tmpl")
+	services.GenerateFiles(data, "/cmd/api/handlers.go", "handlers.tmpl")
 
 }
 

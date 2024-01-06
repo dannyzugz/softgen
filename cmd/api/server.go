@@ -22,16 +22,16 @@ func main() {
 	r.Get("/generator/create", ViewCreatedPro)
 	r.Get("/generator/download/{name}", Download)
 
-	r.Post("/generator/create/js/vue/{name}", CreateVueProject)
-	r.Post("/generator/create/js/react/{name}", CreateReactProject)
+	r.Post("/generator/create/js/vue", CreateVueProject)
+	r.Post("/generator/create/js/react", CreateReactProject)
 
-	r.Post("/generator/create/go/chi/simpleui/{name}", CreateChiProject)
-	r.Post("/generator/create/go/gin/simpleui/{name}", CreateGinProject)
-	r.Post("/generator/create/go/gorilla/simpleui/{name}", CreateMuxProject)
-	r.Post("/generator/create/go/http/simpleui/{name}", CreateHttpProject)
-	r.Post("/generator/create/go/cobra/{name}", CreateCobraProject)
+	r.Post("/generator/create/go/chi/simpleui", CreateChiProject)
+	r.Post("/generator/create/go/gin/simpleui", CreateGinProject)
+	r.Post("/generator/create/go/gorilla/simpleui", CreateMuxProject)
+	r.Post("/generator/create/go/http/simpleui", CreateHttpProject)
+	r.Post("/generator/create/go/cobra", CreateCobraProject)
 
-	r.Post("/generator/create/ddd/{name}", CreateDddProject)
+	r.Post("/generator/create/ddd", CreateDddProject)
 
 	log.Println("initializing server at http://127.0.0.1:3000")
 	http.ListenAndServe(":3000", r)
