@@ -25,10 +25,16 @@ func main() {
 	r.Post("/generator/create/js/vue", CreateVueProject)
 	r.Post("/generator/create/js/react", CreateReactProject)
 
-	r.Post("/generator/create/go/chi/simpleui", CreateChiProject)
-	r.Post("/generator/create/go/gin/simpleui", CreateGinProject)
-	r.Post("/generator/create/go/gorilla/simpleui", CreateMuxProject)
-	r.Post("/generator/create/go/http/simpleui", CreateHttpProject)
+	r.Post("/generator/create/go/simpleui/chi", CreateChiProjectUi)
+	r.Post("/generator/create/go/simpleui/gin", CreateGinProjectUi)
+	r.Post("/generator/create/go/simpleui/gorilla", CreateMuxProjectUi)
+	r.Post("/generator/create/go/simpleui/http", CreateHttpProjectUi)
+
+	r.Post("/generator/create/go/chi", CreateChiProject)
+	r.Post("/generator/create/go/gin", CreateGinProject)
+	r.Post("/generator/create/go/gorilla", CreateMuxProject)
+	r.Post("/generator/create/go/http", CreateHttpProject)
+
 	r.Post("/generator/create/go/cobra", CreateCobraProject)
 
 	r.Post("/generator/create/ddd", CreateDddProject)

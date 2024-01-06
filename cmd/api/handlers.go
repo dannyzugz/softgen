@@ -74,7 +74,7 @@ func CreateReactProject(w http.ResponseWriter, r *http.Request) { // React js
 
 }
 
-func CreateChiProject(w http.ResponseWriter, r *http.Request) { // Chi Router
+func CreateChiProjectUi(w http.ResponseWriter, r *http.Request) { // Chi Router
 	w.Write([]byte("Chi Project"))
 	// projectname := chi.URLParam(r, "name")
 
@@ -108,7 +108,7 @@ func CreateChiProject(w http.ResponseWriter, r *http.Request) { // Chi Router
 
 }
 
-func CreateMuxProject(w http.ResponseWriter, r *http.Request) { // Gorilla Mux
+func CreateMuxProjectUi(w http.ResponseWriter, r *http.Request) { // Gorilla Mux
 	w.Write([]byte("Gorilla Mux Project"))
 	projectname := chi.URLParam(r, "name")
 
@@ -124,11 +124,35 @@ func CreateMuxProject(w http.ResponseWriter, r *http.Request) { // Gorilla Mux
 	services.GenerateFolder(projectname, "ui/static")
 }
 
-func CreateGinProject(w http.ResponseWriter, r *http.Request) { // Gin framework
+func CreateGinProjectUi(w http.ResponseWriter, r *http.Request) { // Gin framework
 	w.Write([]byte("Gin Project"))
 	projectname := chi.URLParam(r, "name")
 	services.GeneratePro(projectname)
 
+}
+
+func CreateHttpProjectUi(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Simple Http"))
+}
+
+func CreateChiProject(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Chi Project"))
+}
+
+func CreateGinProject(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Gin Project"))
+}
+
+func CreateMuxProject(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Mux Project"))
+}
+
+func CreateHttpProject(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Http Project"))
+}
+
+func CreateDddProject(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("DDD Arch"))
 }
 
 func CreateCobraProject(w http.ResponseWriter, r *http.Request) { // Cobra framework
@@ -171,12 +195,4 @@ func Download(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s.zip\"", projectname))
 	http.ServeFile(w, r, zipFile.Name())
 
-}
-
-func CreateHttpProject(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Simple Http"))
-}
-
-func CreateDddProject(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("DDD Arch"))
 }
