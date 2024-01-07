@@ -24,20 +24,24 @@ func main() {
 
 	r.Post("/generator/create/js/vue", CreateVueProject)
 	r.Post("/generator/create/js/react", CreateReactProject)
+	r.Post("/generator/create/ddd", CreateDddProject)
 
-	r.Post("/generator/create/go/simpleui/chi", CreateChiProjectUi)
-	r.Post("/generator/create/go/simpleui/gin", CreateGinProjectUi)
-	r.Post("/generator/create/go/simpleui/gorilla", CreateMuxProjectUi)
-	r.Post("/generator/create/go/simpleui/http", CreateHttpProjectUi)
-
-	r.Post("/generator/create/go/chi", CreateChiProject)
-	r.Post("/generator/create/go/gin", CreateGinProject)
-	r.Post("/generator/create/go/gorilla", CreateMuxProject)
-	r.Post("/generator/create/go/http", CreateHttpProject)
-
+	r.Post("/generator/create/go/api", CreateApiProject)
 	r.Post("/generator/create/go/cobra", CreateCobraProject)
 
-	r.Post("/generator/create/ddd", CreateDddProject)
+	/* r.Route("/generator/create/go", func(r chi.Router) {
+		r.Post("/simpleui/chi", CreateChiProjectUi)
+		r.Post("/simpleui/gin", CreateGinProjectUi)
+		r.Post("/simpleui/gorilla", CreateMuxProjectUi)
+		r.Post("/simpleui/http", CreateHttpProjectUi)
+
+		r.Post("/chi", CreateChiProject)
+		r.Post("/gin", CreateGinProject)
+		r.Post("/gorilla", CreateMuxProject)
+		r.Post("/http", CreateHttpProject)
+
+		r.Post("/cobra", CreateCobraProject)
+	}) */
 
 	log.Println("initializing server at http://127.0.0.1:3000")
 	http.ListenAndServe(":3000", r)

@@ -108,47 +108,50 @@ func CreateChiProjectUi(w http.ResponseWriter, r *http.Request) { // Chi Router
 
 }
 
-func CreateMuxProjectUi(w http.ResponseWriter, r *http.Request) { // Gorilla Mux
-	w.Write([]byte("Gorilla Mux Project"))
-	projectname := chi.URLParam(r, "name")
+func CreateApiProject(w http.ResponseWriter, r *http.Request) {
 
-	services.GeneratePro(projectname)
-	services.GenerateFolder(projectname, "bin")
-	services.GenerateFolder(projectname, "cmd")
-	services.GenerateFolder(projectname, "cmd/api")
-	services.GenerateFolder(projectname, "internal")
-	services.GenerateFolder(projectname, "internal/data")
-	services.GenerateFolder(projectname, "test")
-	services.GenerateFolder(projectname, "ui")
-	services.GenerateFolder(projectname, "ui/html")
-	services.GenerateFolder(projectname, "ui/static")
-}
+	var data models.ProjectData
 
-func CreateGinProjectUi(w http.ResponseWriter, r *http.Request) { // Gin framework
-	w.Write([]byte("Gin Project"))
-	projectname := chi.URLParam(r, "name")
-	services.GeneratePro(projectname)
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 
-}
+	// projectname := data.ProjectName
+	router := data.RouterName
+	db := data.DbName
+	ui := data.Ui
+	fmt.Println(router)
+	fmt.Println(db)
+	fmt.Println(ui)
 
-func CreateHttpProjectUi(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Simple Http"))
-}
+	if ui {
+		switch db {
+		case "postgresql":
+			w.Write([]byte("Project with UI and Postrgres"))
+		case "mysql":
+			w.Write([]byte("Project with UI and MySql"))
+		default:
+			switch router {
+			case "chi":
+				w.Write([]byte("Chi Project with UI"))
+			case "gin":
+				w.Write([]byte("Gin Project"))
+			case "fiber":
+				w.Write([]byte("React Project"))
+			case "gorilla":
+				w.Write([]byte("React Project"))
+			case "http":
+				w.Write([]byte("React Project"))
+			default:
+				w.Write([]byte("Error, is not exist that project"))
+			}
+		}
+	} else {
+		w.Write([]byte("Project without UI"))
+	}
 
-func CreateChiProject(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Chi Project"))
-}
-
-func CreateGinProject(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Gin Project"))
-}
-
-func CreateMuxProject(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Mux Project"))
-}
-
-func CreateHttpProject(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Http Project"))
 }
 
 func CreateDddProject(w http.ResponseWriter, r *http.Request) {

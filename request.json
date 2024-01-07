@@ -1,0 +1,7 @@
+{
+    "project" : "pro19",
+    "mod" : "github.com/Dany/eltanke",
+    "router" : "chi",
+    "db" : "none",
+    "ui" : true
+}
