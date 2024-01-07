@@ -56,27 +56,16 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func ViewCreatedPro(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("GET Project"))
-}
-
 func CreateVueProject(w http.ResponseWriter, r *http.Request) { // Vue js
 	w.Write([]byte("Vue Project"))
-	projectname := chi.URLParam(r, "name")
-	services.GeneratePro(projectname)
-
 }
 
 func CreateReactProject(w http.ResponseWriter, r *http.Request) { // React js
 	w.Write([]byte("React Project"))
-	projectname := chi.URLParam(r, "name")
-	services.GeneratePro(projectname)
-
 }
 
 func CreateChiProjectUi(w http.ResponseWriter, r *http.Request) { // Chi Router
 	w.Write([]byte("Chi Project"))
-	// projectname := chi.URLParam(r, "name")
 
 	var data models.ProjectData
 
@@ -85,26 +74,6 @@ func CreateChiProjectUi(w http.ResponseWriter, r *http.Request) { // Chi Router
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-
-	projectname := data.ProjectName
-
-	services.GeneratePro(projectname)
-
-	services.GenerateFolder(projectname, "bin")
-	services.GenerateFolder(projectname, "cmd")
-	services.GenerateFolder(projectname, "cmd/api")
-	services.GenerateFolder(projectname, "internal")
-	services.GenerateFolder(projectname, "internal/data")
-	services.GenerateFolder(projectname, "test")
-	services.GenerateFolder(projectname, "ui")
-	services.GenerateFolder(projectname, "ui/html")
-	services.GenerateFolder(projectname, "ui/static")
-
-	services.GenerateFiles(data, "/ui/html/index.html", "html.tmpl")
-	services.GenerateFiles(data, "/ui/static/main.css", "css.tmpl")
-	services.GenerateFiles(data, "/ui/static/main.js", "js.tmpl")
-	services.GenerateFiles(data, "/cmd/api/server.go", "chi.tmpl")
-	services.GenerateFiles(data, "/cmd/api/handlers.go", "handlers.tmpl")
 
 }
 
@@ -118,13 +87,9 @@ func CreateApiProject(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// projectname := data.ProjectName
 	router := data.RouterName
 	db := data.DbName
 	ui := data.Ui
-	fmt.Println(router)
-	fmt.Println(db)
-	fmt.Println(ui)
 
 	if ui {
 		switch db {
@@ -136,14 +101,15 @@ func CreateApiProject(w http.ResponseWriter, r *http.Request) {
 			switch router {
 			case "chi":
 				w.Write([]byte("Chi Project with UI"))
+				services.GenChiUi(data)
 			case "gin":
 				w.Write([]byte("Gin Project"))
 			case "fiber":
-				w.Write([]byte("React Project"))
+				w.Write([]byte("fiber Project"))
 			case "gorilla":
-				w.Write([]byte("React Project"))
+				w.Write([]byte("gorilla Project"))
 			case "http":
-				w.Write([]byte("React Project"))
+				w.Write([]byte("http Project"))
 			default:
 				w.Write([]byte("Error, is not exist that project"))
 			}

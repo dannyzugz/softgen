@@ -1,0 +1,34 @@
+package main
+
+import (
+	"html/template"
+	"net/http"
+
+	"github.com/DanyZugz/Software-Generator/internal/services"
+	"github.com/go-chi/chi/v5"
+)
+
+func Home(c *gin.Context) {
+
+	c.Writer.Write("Home Page")
+}
+
+func Func1(c *gin.Context) {
+
+	c.Writer.Write("Func1")
+}
+
+func Func2(c *gin.Context) {
+
+	c.Writer.Write("Func2")
+}
+
+func Func3(c *gin.Context) {
+
+	c.Writer.Write("Func3")
+}
+
+func Func4(c *gin.Context) {
+
+	c.Writer.Write("Func4")
+}

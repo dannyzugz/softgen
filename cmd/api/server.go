@@ -19,29 +19,16 @@ func main() {
 	FileServer(r, "/static", filesDir)
 
 	r.Get("/", Home)
-	r.Get("/generator/create", ViewCreatedPro)
 	r.Get("/generator/download/{name}", Download)
 
-	r.Post("/generator/create/js/vue", CreateVueProject)
-	r.Post("/generator/create/js/react", CreateReactProject)
-	r.Post("/generator/create/ddd", CreateDddProject)
+	r.Route("/generator/create/", func(r chi.Router) {
+		r.Post("/js/vue", CreateVueProject)
+		r.Post("/react", CreateReactProject)
+		r.Post("/ddd", CreateDddProject)
 
-	r.Post("/generator/create/go/api", CreateApiProject)
-	r.Post("/generator/create/go/cobra", CreateCobraProject)
-
-	/* r.Route("/generator/create/go", func(r chi.Router) {
-		r.Post("/simpleui/chi", CreateChiProjectUi)
-		r.Post("/simpleui/gin", CreateGinProjectUi)
-		r.Post("/simpleui/gorilla", CreateMuxProjectUi)
-		r.Post("/simpleui/http", CreateHttpProjectUi)
-
-		r.Post("/chi", CreateChiProject)
-		r.Post("/gin", CreateGinProject)
-		r.Post("/gorilla", CreateMuxProject)
-		r.Post("/http", CreateHttpProject)
-
-		r.Post("/cobra", CreateCobraProject)
-	}) */
+		r.Post("/go/api", CreateApiProject)
+		r.Post("/go/cobra", CreateCobraProject)
+	})
 
 	log.Println("initializing server at http://127.0.0.1:3000")
 	http.ListenAndServe(":3000", r)

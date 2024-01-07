@@ -4,9 +4,36 @@ import (
 	"bytes"
 	"html/template"
 	"log"
+	"os"
 
 	"github.com/DanyZugz/Software-Generator/internal/models"
 )
+
+func GeneratePro(projectname string) {
+
+	dir := "./generatedProjects/" + projectname
+
+	if _, err := os.Stat(dir); os.IsNotExist(err) {
+		err = os.Mkdir(dir, 0755)
+		if err != nil {
+			log.Println(err)
+		}
+
+	}
+}
+
+func GenerateFolder(directory string, newfolder string) {
+
+	dir := "./generatedProjects/" + directory + "/" + newfolder
+
+	if _, err := os.Stat(dir); os.IsNotExist(err) {
+		err = os.Mkdir(dir, 0755)
+		if err != nil {
+			log.Println(err)
+		}
+
+	}
+}
 
 func GenerateFiles(data models.ProjectData, dir string, temp string) {
 
