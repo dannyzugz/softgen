@@ -1,0 +1,33 @@
+package main
+
+import (
+	"html/template"
+	"net/http"
+
+	"{{.ModName}}/internal/services"
+)
+
+func Home(w http.ResponseWriter, r *http.Request) {
+
+	w.Write([]byte("Home"))
+}
+
+func Func1(w http.ResponseWriter, r *http.Request) {
+
+	w.Write([]byte("Func1"))
+}
+
+func Func2(w http.ResponseWriter, r *http.Request) {
+
+	w.Write([]byte("Func2"))
+}
+
+func Func3(w http.ResponseWriter, r *http.Request) {
+
+	w.Write([]byte("Func3"))
+}
+
+func Func4(w http.ResponseWriter, r *http.Request) {
+
+	w.Write([]byte("Func4"))
+}
