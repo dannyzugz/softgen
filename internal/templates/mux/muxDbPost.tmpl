@@ -1,0 +1,35 @@
+package main
+
+import (
+	"database/sql"
+	"log"
+	"net/http"
+	"os"
+
+	"github.com/gorilla/mux"
+)
+
+type User struct {
+	ID    int    `json:"id"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
+}
+
+func main() {
+
+	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL")) // replace "DATABASE_URL" with your actual database connection string. Also, ensure that the users table exists in your database.
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	router := mux.NewRouter()
+	router.HandleFunc("/users", getUsers(db)).Methods("GET")
+	router.HandleFunc("/users/{id}", getUser(db)).Methods("GET")
+	router.HandleFunc("/users", createUser(db)).Methods("POST")
+	router.HandleFunc("/users/{id}", updateUser(db)).Methods("PUT")
+	router.HandleFunc("/users/{id}", deleteUser(db)).Methods("DELETE")
+
+	log.Fatal(http.ListenAndServe(":8000", router))
+
+}

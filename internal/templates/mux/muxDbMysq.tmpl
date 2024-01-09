@@ -1,0 +1,73 @@
+package main
+
+import (
+	"database/sql"
+	"fmt"
+	"log"
+	"net/http"
+
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/gorilla/mux"
+)
+
+// Define the database connection parameters
+const (
+	DBHost     = "localhost"
+	DBPort     = 3306
+	DBUser     = "root"
+	DBPassword = "password"
+	DBName     = "crud_app"
+)
+
+// Create a global variable to store the database connection
+var db *sql.DB
+
+func main() {
+	// Initialize the database connection
+	initDB()
+
+	// Create a new router using the Gorilla Mux package
+	router := mux.NewRouter()
+
+	// Define the CRUD endpoints
+	router.HandleFunc("/users", getUsers).Methods("GET")
+	router.HandleFunc("/users/{id}", getUser).Methods("GET")
+	router.HandleFunc("/users", createUser).Methods("POST")
+	router.HandleFunc("/users/{id}", updateUser).Methods("PUT")
+	router.HandleFunc("/users/{id}", deleteUser).Methods("DELETE")
+
+	// Start the HTTP server
+	log.Fatal(http.ListenAndServe(":8080", router))
+}
+
+// Initialize the database connection
+func initDB() {
+	var err error
+	dataSourceName := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", DBUser, DBPassword, DBHost, DBPort, DBName)
+	db, err = sql.Open("mysql", dataSourceName)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+// CRUD operations
+
+func getUsers(w http.ResponseWriter, r *http.Request) {
+	// Fetch all users from the database and return as JSON
+}
+
+func getUser(w http.ResponseWriter, r *http.Request) {
+	// Fetch a specific user from the database and return as JSON
+}
+
+func createUser(w http.ResponseWriter, r *http.Request) {
+	// Create a new user in the database
+}
+
+func updateUser(w http.ResponseWriter, r *http.Request) {
+	// Update an existing user in the database
+}
+
+func deleteUser(w http.ResponseWriter, r *http.Request) {
+	// Delete a user from the database
+}
