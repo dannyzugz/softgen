@@ -1,0 +1,22 @@
+package server
+
+import (
+    "{{.ModName}}/internal/config"
+
+    "github.com/gofiber/fiber/v3"
+)
+
+func Run() {
+    app := fiber.New()
+
+    app.Get("/", home)
+    app.Get("/", Func1)
+    app.Get("/", Func2)
+    app.Get("/", Func3)
+    app.Get("/", Func4)
+
+    cfg := config.Config()
+
+	log.Printf("Listen and Serve at port : %s \n", cfg.AppPort)
+	log.Fatal(app.Listen(":"+cfg.AppPort))
+}

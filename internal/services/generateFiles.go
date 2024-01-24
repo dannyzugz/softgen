@@ -5,8 +5,9 @@ import (
 	"html/template"
 	"log"
 	"os"
+	"path"
 
-	"github.com/DanyZugz/Software-Generator/internal/models"
+	"github.com/dannyzugz/Software-Generator/internal/models"
 )
 
 func GeneratePro(projectname string) {
@@ -52,7 +53,7 @@ func GenerateFiles(data models.ProjectData, dir string, temp string) {
 			log.Println(err)
 		}
 	} else {
-		tmpl, err := template.New(temp).ParseFiles("./internal/templates/" + temp)
+		tmpl, err := template.New(path.Base(temp)).ParseFiles("./internal/templates/" + temp)
 
 		if err != nil {
 			log.Println(err)
@@ -66,4 +67,39 @@ func GenerateFiles(data models.ProjectData, dir string, temp string) {
 
 	directory := "./generatedProjects/" + projectname + dir
 	SaveToFile(directory, processed.String())
+}
+
+func GenerateBasics(data models.ProjectData) {
+
+	projectname := data.ProjectName
+
+	// All folder for the project
+	GenerateFolder(projectname, "bin")
+	GenerateFolder(projectname, "cmd")
+	GenerateFolder(projectname, "cmd/api")
+	GenerateFolder(projectname, "internal")
+	GenerateFolder(projectname, "internal/models")
+	GenerateFolder(projectname, "internal/services")
+	GenerateFolder(projectname, "internal/config")
+	GenerateFolder(projectname, "database")
+	GenerateFolder(projectname, "test")
+
+	// Configuration for the project
+
+	GenerateFiles(data, "/.env", "env.tmpl")
+	GenerateFiles(data, "/internal/config/config.go", "config.tmpl")
+	GenerateFiles(data, "/go.mod", "mod.tmpl")
+}
+
+func GenerateUI(data models.ProjectData) {
+
+	projectname := data.ProjectName
+
+	GenerateFolder(projectname, "ui")
+	GenerateFolder(projectname, "ui/html")
+	GenerateFolder(projectname, "ui/static")
+
+	GenerateFiles(data, "/ui/html/index.html", "html.tmpl")
+	GenerateFiles(data, "/ui/static/main.css", "css.tmpl")
+	GenerateFiles(data, "/ui/static/main.js", "js.tmpl")
 }

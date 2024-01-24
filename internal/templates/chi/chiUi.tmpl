@@ -1,6 +1,7 @@
-package main
+package server
 
 import (
+	"{{.ModName}}/internal/config"
 	"log"
 	"net/http"
 	"os"
@@ -10,7 +11,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-func main() {
+func Run() {
 	r := chi.NewRouter()
 
 	workDir, _ := os.Getwd()
@@ -25,8 +26,10 @@ func main() {
 	r.Delete("/path4", Func4)
 
 
-	log.Println("initializing server at https://127.0.0.1:3000")
-	http.ListenAndServe(":3000", r)
+	cfg := config.Config()
+
+	log.Printf("Listen and Serve at port : %s \n", cfg.AppPort)
+	log.Fatal(http.ListenAndServe(":"+cfg.AppPort, r))
 }
 
 // Handling fileserver in Chi-router

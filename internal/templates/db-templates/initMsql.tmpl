@@ -1,0 +1,32 @@
+package database
+
+import (
+	"{{.ModName}}/internal/config"
+	"fmt"
+	"log"
+
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
+)
+
+func InitializeDB() (*gorm.DB, error) {
+
+	cfg := config.Config()
+
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", cfg.DbUsername, cfg.DbPassword, cfg.DbHost, cfg.DbPort, cfg.DbName)
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+
+	sqlDB, err := db.DB()
+	if err != nil {
+		panic("failed to get DB")
+	}
+
+	err = sqlDB.Ping()
+	if err != nil {
+		panic("failed to ping database")
+	} else {
+		log.Println("Successfully Connected To DB")
+	}
+
+	return db, err
+}

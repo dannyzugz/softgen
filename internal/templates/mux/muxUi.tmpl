@@ -1,15 +1,23 @@
-package main
+package server
 
 import (
+    "{{.ModName}}/internal/config"
     "net/http"
     "log"
+
     "github.com/gorilla/mux"
 )
 
 
-func main() {
+func Run() {
+
     r := mux.NewRouter()
-    // Routes consist of a path and a handler function.
+
+    s := http.StripPrefix("/static/", http.FileServer(http.Dir("./static/")))
+    r.PathPrefix("/static/").Handler(s)
+
+
+    // Routes
     
     r.HandleFunc("/", Home)
 
@@ -18,6 +26,8 @@ func main() {
 	r.HandleFunc("/path3", Func3)
 	r.HandleFunc("/path4", Func4)
 
-    // Bind to a port and pass our router in
-    log.Fatal(http.ListenAndServe(":8000", r))
+    cfg := config.Config()
+
+	log.Printf("Listen and Serve at port : %s \n", cfg.AppPort)
+	log.Fatal(http.ListenAndServe(":"+cfg.AppPort, r))
 }

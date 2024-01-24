@@ -10,8 +10,8 @@ import (
 
 	"path/filepath"
 
-	"github.com/DanyZugz/Software-Generator/internal/models"
-	"github.com/DanyZugz/Software-Generator/internal/services"
+	"github.com/dannyzugz/Software-Generator/internal/models"
+	"github.com/dannyzugz/Software-Generator/internal/services"
 	"github.com/go-chi/chi/v5"
 
 	"encoding/json"

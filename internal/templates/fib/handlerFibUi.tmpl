@@ -1,14 +1,23 @@
-package main
+package server
+
+import (
+
+    "github.com/gofiber/fiber/v3"
+)
+
 
 func indexHandler(c *fiber.Ctx) error {
    return c.SendString("Hello")
 }
+
 func postHandler(c *fiber.Ctx) error {
    return c.SendString("Hello")
 }
+
 func putHandler(c *fiber.Ctx) error {
    return c.SendString("Hello")
 }
+
 func deleteHandler(c *fiber.Ctx) error {
    return c.SendString("Hello")
 }

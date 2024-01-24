@@ -1,4 +1,4 @@
-module github.com/DanyZugz/Software-Generator
+module github.com/dannyzugz/Software-Generator
 
 go 1.21.3
 

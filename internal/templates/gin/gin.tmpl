@@ -1,10 +1,13 @@
-package main
+package server
 
 import (
+	"{{.ModName}}/internal/config"
+	"log"
+
 	"github.com/gin-gonic/gin"
 )
 
-func main() {
+func Run() {
 
 	r := gin.Default()
 
@@ -15,5 +18,10 @@ func main() {
 	r.PUT("/put-path", Func3)
 	r.DELETE("/delete-path", Func4)
 
-	r.Run() // Server is run on port 8080
+	cfg := config.Config()
+	
+	log.Printf("Listen and Serve at port : %s \n", cfg.AppPort)
+
+	log.Fatalln(http.ListenAndServe(":"+cfg.AppPort, r))
+
 }

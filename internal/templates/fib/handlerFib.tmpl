@@ -1,0 +1,26 @@
+package server
+
+import (
+
+    "github.com/gofiber/fiber/v3"
+)
+
+func home(c fiber.Ctx) error {
+    return c.SendString("Hello, World 👋!")
+}
+
+func Func1(c fiber.Ctx) error {
+    return c.SendString("Hello 1 👋!")
+}
+
+func Func2(c fiber.Ctx) error {
+    return c.SendString("Hello 2 👋!")
+}
+
+func Func3(c fiber.Ctx) error {
+    return c.SendString("Hello 3 👋!")
+}
+
+func Func4(c fiber.Ctx) error {
+    return c.SendString("Hello 4 👋!")
+}

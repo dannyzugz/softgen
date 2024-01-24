@@ -1,11 +1,10 @@
-package main
+package server
 
 import (
 	"html/template"
 	"net/http"
 
 	"{{.ModName}}/internal/services"
-	"github.com/go-chi/chi/v5"
 )
 
 func Home(w http.ResponseWriter, r *http.Request) {

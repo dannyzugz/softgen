@@ -1,0 +1,40 @@
+package config
+
+import (
+	"log"
+	"os"
+
+	"github.com/joho/godotenv"
+)
+
+type Configuration struct {
+	AppPort    string
+	DbHost     string
+	DbName     string
+	DbDatabase string
+	DbUsername string
+	DbPassword string
+	DbPort     string
+}
+
+func Config() Configuration {
+
+	var cfg Configuration
+
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
+
+	appPort := os.Getenv("APP_PORT")
+	db_host := os.Getenv("DB_HOST")
+	db_name := os.Getenv("DB_NAME")
+	db_database := os.Getenv("DB_DATABASE")
+	db_username := os.Getenv("DB_USERNAME")
+	db_password := os.Getenv("DB_PASSWORD")
+	db_port := os.Getenv("DB_PORT")
+
+	cfg = Configuration{appPort, db_host, db_name, db_database, db_username, db_password, db_port}
+
+	return cfg
+}

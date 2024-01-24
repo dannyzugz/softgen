@@ -1,23 +1,26 @@
-package main
+package server
 
 import (
+	"{{.ModName}}/internal/config"
 	"net/http"
-	"time"
+	"log"
+
+	"github.com/gorilla/mux"
 )
 
-func main() {
+func Run() {
+
+
 	r := mux.NewRouter()
+
+	// Routes
+
 	r.HandleFunc("/", HomeHandler)
 	r.HandleFunc("/products", ProductsHandler)
 	r.HandleFunc("/articles", ArticlesHandler)
 
-	srv := &http.Server{
-		Handler: r,
-		Addr:    "127.0.0.1:8000",
-		// Good practice: enforce timeouts for servers you create!
-		WriteTimeout: 15 * time.Second,
-		ReadTimeout:  15 * time.Second,
-	}
+	cfg := config.Config()
 
-	log.Fatal(srv.ListenAndServe())
+	log.Printf("Listen and Serve at port : %s \n", cfg.AppPort)
+	log.Fatal(http.ListenAndServe(":"+cfg.AppPort, r))
 }

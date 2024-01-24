@@ -1,0 +1,31 @@
+package server
+
+import (
+    "{{.ModName}}/internal/config"
+
+    "log"
+    "net/http"
+)
+
+func Run() {
+    dir := http.Dir("./static")
+    fs := http.FileServer(dir)
+
+    mux := http.NewServeMux()
+    mux.Handle("/static", fs)
+
+    // Routes
+
+    mux.HandleFunc("/", home)
+    mux.HandleFunc("/", func1)
+    mux.HandleFunc("/", func2)
+    mux.HandleFunc("/", func3)
+    mux.HandleFunc("/", func4)
+
+    // Run the server
+
+    cfg := config.Config()
+
+	log.Printf("Listen at port : %s \n", cfg.AppPort)
+	log.Fatalln(http.ListenAndServe(":"+cfg.AppPort, mux))
+}

@@ -1,0 +1,35 @@
+package server
+
+import (
+	"html/template"
+	"net/http"
+    "fmt"
+
+	"{{.ModName}}/internal/services"
+)
+
+func home(w http.ResponseWriter, r *http.Request) {
+
+	template, err := template.ParseFiles("./ui/html/index.html")
+	if err != nil {
+		panic(err)
+	} else {
+		template.Execute(w, nil)
+	}
+}
+
+func func1(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Hello, World!")
+}
+
+func func2(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Hello, World!")
+}
+
+func func3(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Hello, World!")
+}
+
+func func4(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Hello, World!")
+}

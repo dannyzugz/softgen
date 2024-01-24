@@ -1,0 +1,27 @@
+package server
+
+import (
+	"{{.ModName}}/internal/config"
+	"log"
+
+	"github.com/gin-gonic/gin"
+)
+
+func Run() {
+
+	r := gin.Default()
+
+	r.GET("/", Home)
+	r.GET("/get-path", Func1)
+
+	r.POST("/post-path", Func2)
+	r.PUT("/put-path", Func3)
+	r.DELETE("/delete-path", Func4)
+
+	cfg := config.Config()
+	
+	log.Printf("Listen and Serve at port : %s \n", cfg.AppPort)
+
+	log.Fatalln(http.ListenAndServe(":"+cfg.AppPort, r))
+
+}
